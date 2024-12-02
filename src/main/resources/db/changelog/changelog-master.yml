@@ -17,7 +17,7 @@ databaseChangeLog:
                   remarks: "Unique identifier for each payload."
               - column:
                   name: device
-                  type: VARCHAR
+                  type: VARCHAR(255)
                   constraints:
                     nullable: true
                   remarks: "Name for each device type"
