@@ -26,6 +26,12 @@ public class MainController {
         return mainService.handleAllPayloads(payloads);
     }
 
+    @GetMapping
+    @ResponseStatus(OK)
+    public List<DeviceStatus> getDeviceStatuses() {
+        return mainService.getDeviceStatuses();
+    }
+
     @GetMapping("/sensor")
     @ResponseStatus(OK)
     public Map<String, BigDecimal> getSensorData() {

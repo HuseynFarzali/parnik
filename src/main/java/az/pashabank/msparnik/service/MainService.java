@@ -52,6 +52,11 @@ public class MainService {
             deviceContext.setFAN(ACTIVE);
         }
 
+        else {
+            deviceContext.setLED(PASSIVE);
+            deviceContext.setFAN(PASSIVE);
+        }
+
         return List.of(deviceContext.getLED(), deviceContext.getFAN());
     }
 
@@ -103,6 +108,15 @@ public class MainService {
             case "fan" -> deviceContext.setFAN(stateChange.getState());
             case "motor" -> deviceContext.setMOTOR(stateChange.getState());
         }
+    }
+
+    public List<DeviceStatus> getDeviceStatuses() {
+        return List.of(
+                deviceContext.getLED(),
+                deviceContext.getFAN(),
+                deviceContext.getMOTOR(),
+                deviceContext.getPUMP()
+        );
     }
 }
 
