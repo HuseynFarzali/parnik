@@ -1,5 +1,6 @@
 package az.pashabank.msparnik.controller;
 
+import az.pashabank.msparnik.model.IllegalCommandException;
 import az.pashabank.msparnik.model.UnknownDeviceException;
 import az.pashabank.msparnik.model.dto.ExceptionResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +17,12 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UnknownDeviceException.class)
     @ResponseStatus(BAD_REQUEST)
     public ExceptionResponse handleUnknownDeviceException(UnknownDeviceException e) {
+        return new ExceptionResponse(e.getMessage());
+    }
+
+    @ExceptionHandler(IllegalCommandException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public ExceptionResponse handleIllegalCommandException(IllegalCommandException e) {
         return new ExceptionResponse(e.getMessage());
     }
 
