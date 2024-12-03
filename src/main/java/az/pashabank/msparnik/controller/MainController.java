@@ -44,10 +44,10 @@ public class MainController {
         return mainService.getDeviceData();
     }
 
-    @PostMapping("/{deviceName}")
+    @GetMapping("/{deviceName}/{state}")
     @ResponseStatus(OK)
-    public void changeDeviceState(@PathVariable String deviceName, @RequestBody DeviceStateChangeDto stateChange) {
-        mainService.changeDeviceState(deviceName, stateChange);
+    public void changeDeviceState(@PathVariable String deviceName, @PathVariable DeviceStatus state) {
+        mainService.changeDeviceState(deviceName, DeviceStateChangeDto.builder().state(state).build());
     }
 }
 
