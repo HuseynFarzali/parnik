@@ -45,7 +45,7 @@ public class MainController {
     }
 
     @PostMapping("/{deviceName}")
-    @ResponseStatus(NO_CONTENT)
+    @ResponseStatus(OK)
     public void changeDeviceState(@PathVariable String deviceName, @RequestBody DeviceStateChangeDto stateChange) {
         mainService.changeDeviceState(deviceName, stateChange);
     }
