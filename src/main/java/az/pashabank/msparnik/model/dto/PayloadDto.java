@@ -9,6 +9,5 @@ import java.math.BigDecimal;
 @Builder
 public class PayloadDto {
     private String quantity;
-    private Long id;
     private BigDecimal value;
 }

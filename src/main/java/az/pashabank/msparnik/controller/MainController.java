@@ -1,21 +1,17 @@
 package az.pashabank.msparnik.controller;
 
+import az.pashabank.msparnik.model.dto.DeviceStateChangeDto;
 import az.pashabank.msparnik.model.dto.DeviceStatus;
-import az.pashabank.msparnik.model.dto.FrontPayloadDto;
 import az.pashabank.msparnik.model.dto.PayloadDto;
-import az.pashabank.msparnik.model.dto.PayloadResponseDto;
 import az.pashabank.msparnik.service.MainService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -26,13 +22,26 @@ public class MainController {
 
     @PostMapping
     @ResponseStatus(OK)
-    public List<DeviceStatus> postDataWithResponse(@RequestBody List<PayloadDto> payloads) {
+    public List<DeviceStatus> postData(@RequestBody List<PayloadDto> payloads) {
         return mainService.handleAllPayloads(payloads);
     }
 
-    @GetMapping
+    @GetMapping("/sensor")
     @ResponseStatus(OK)
-    public Map<String, List<FrontPayloadDto>> getData() {
-        return mainService.getData();
+    public Map<String, BigDecimal> getSensorData() {
+        return mainService.getSensorData();
+    }
+
+    @GetMapping("/device")
+    @ResponseStatus(OK)
+    public Map<String, DeviceStatus> getDeviceData() {
+        return mainService.getDeviceData();
+    }
+
+    @PostMapping("/{deviceName}")
+    @ResponseStatus(NO_CONTENT)
+    public void changeDeviceState(@PathVariable String deviceName, @RequestBody DeviceStateChangeDto stateChange) {
+        mainService.changeDeviceState(deviceName, stateChange);
     }
 }
+
